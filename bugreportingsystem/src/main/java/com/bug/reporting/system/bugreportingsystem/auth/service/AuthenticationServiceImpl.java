@@ -11,6 +11,7 @@ import com.bug.reporting.system.bugreportingsystem.auth.model.ForgetPasswordDto;
 import com.bug.reporting.system.bugreportingsystem.auth.model.SignUpRequest;
 import com.bug.reporting.system.bugreportingsystem.auth.model.SigninRequest;
 import com.bug.reporting.system.bugreportingsystem.auth.repository.UserRepository;
+import com.bug.reporting.system.bugreportingsystem.exception.MessageConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -69,7 +70,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             UserDetails userDetails = userService.loadUserByUsername(request.getEmail());
             if (userDetails == null) {
                 log.info("User not found logging");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User is not found");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstant.message);
             }
 
             if (!passwordEncoders.matches(request.getPassword(), userDetails.getPassword())) {
@@ -80,10 +81,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             JwtAuthenticationResponse jwt = new JwtAuthenticationResponse(token);
             return ResponseEntity.ok(jwt);
         } catch (UsernameNotFoundException ex) {
-            log.info("UsernameNotFoundException: {}", ex.getMessage());
+            log.error("UsernameNotFoundException: {}", ex.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User is not founding");
         } catch (Exception e) {
-            log.error("An unexpected error occurred: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error");
         }
     }

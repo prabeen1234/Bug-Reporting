@@ -8,15 +8,16 @@ import com.bug.reporting.system.bugreportingsystem.auth.model.SigninRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthenticationService {
+
     ResponseEntity<?> signup(SignUpRequest request);
 
     ResponseEntity<?> signin(SigninRequest request);
 
     ResponseEntity<?> changePassword(ChangePasswordDto changePasswordDto);
 
-     ResponseEntity<?> forgetPassword(ForgetPasswordDto forgetPasswordDto);
+    ResponseEntity<?> forgetPassword(ForgetPasswordDto forgetPasswordDto);
 
-   String generateCode(String email);
+    String generateCode(String email);
 
 
 }
