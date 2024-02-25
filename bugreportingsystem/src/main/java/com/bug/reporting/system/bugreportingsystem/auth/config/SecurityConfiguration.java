@@ -66,13 +66,3 @@ public class SecurityConfiguration {
         return config.getAuthenticationManager();
     }
 }
-//.authorizeHttpRequests((request) ->request
-//        .requestMatchers("/api/user/auth/signup").permitAll()
-//        .requestMatchers("/api/user/auth/signin").permitAll()
-//        .requestMatchers("/signin", "/signup").permitAll()
-//        .requestMatchers("/").permitAll()
-//        .requestMatchers("/api/admin/*", "/api/admin/**").hasAuthority(Role.ADMIN.name())
-//        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-//        .requestMatchers("/signin", "/signup").permitAll()
-//        .requestMatchers("/api/user/bug/**").authenticated()  // Allow access to /api/user/bug/** for authenticated users
-//        .anyRequest().authenticated())
