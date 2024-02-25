@@ -1,4 +1,4 @@
-package com.bug.reporting.system.bugreportingsystem.config;
+package com.bug.reporting.system.bugreportingsystem.auth.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

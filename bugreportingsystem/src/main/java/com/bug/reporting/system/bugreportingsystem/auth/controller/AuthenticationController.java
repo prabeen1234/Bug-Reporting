@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
-@CrossOrigin(origins = "http://localhost:4200") // Adjust the origin based on your Angular app's URL
+@RequestMapping("/api/v1")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<?> signup(@RequestBody @Validated SignUpRequest request) {
         return authenticationService.signup(request);
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/auth/signin")
     public ResponseEntity<?> signin(@RequestBody SigninRequest request) {
         return authenticationService.signin(request);
     }
@@ -32,7 +32,6 @@ public class AuthenticationController {
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
         return authenticationService.changePassword(changePasswordDto);
     }
-    @PreAuthorize("\"hasRole('ADMIN')\"")
     @PostMapping("/forget")
     public ResponseEntity<?> forgetPassword(@RequestBody ForgetPasswordDto forgetPasswordDto) {
         return authenticationService.forgetPassword(forgetPasswordDto);
