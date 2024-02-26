@@ -37,7 +37,6 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/user/*", "/api/user/**").hasAnyAuthority(Role.USER.name())
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/signin", "/signup").permitAll()
-                        .requestMatchers("/api/user/bug/**").authenticated()  // Allow access to /api/user/bug/** for authenticated users
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(

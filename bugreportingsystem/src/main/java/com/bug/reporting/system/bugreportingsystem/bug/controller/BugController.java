@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/user/bug")
 @RequiredArgsConstructor
 public class BugController {
     private final UserBugService userBugService;
 
-    @PostMapping("/bug/save")
+    @PostMapping("/save")
     public ResponseEntity<?> bugSave(@RequestPart BugDto bugDto, @RequestPart MultipartFile multipartFile, @RequestPart MultipartFile multipartFile1) {
         return userBugService.addBugByUser(bugDto, multipartFile, multipartFile1);
     }
-    @GetMapping("/bug/getAllBug")
+    @GetMapping("/get_all_bug")
     public ResponseEntity<?> getAllBug(@RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
         return userBugService.getAllBugs(pageNumber, pageSize);
     }
