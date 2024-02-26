@@ -1,5 +1,6 @@
-package com.bug.reporting.system.bugreportingsystem.config;
+package com.bug.reporting.system.bugreportingsystem.auth.config;
 
+import com.bug.reporting.system.bugreportingsystem.auth.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,21 +22,26 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    private final UserServiceImpl userService;
+    private final UserDetailService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request ->
-                        request
-                                .requestMatchers("/api/v1/auth/**","/**")
-                                .permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(request ->request
+                        .requestMatchers("/api/v1/auth/signin").permitAll()
+                        .requestMatchers("/api/v1/auth/signup").permitAll()
+                        .requestMatchers("/signin", "/signup").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/api/user/*", "/api/user/**").hasAnyAuthority(Role.USER.name())
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/signin", "/signup").permitAll()
+                        .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider()).addFilterBefore(
                         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 

@@ -1,10 +1,11 @@
-package com.bug.reporting.system.bugreportingsystem.config;
+package com.bug.reporting.system.bugreportingsystem.auth.config;
 
 
 import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
 import com.bug.reporting.system.bugreportingsystem.exception.CustomMessage;
 import com.bug.reporting.system.bugreportingsystem.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserDetailsService  {
+public class UserDetailService implements UserDetailsService  {
     private final UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
