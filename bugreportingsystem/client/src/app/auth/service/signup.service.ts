@@ -9,9 +9,9 @@ import { environment } from 'src/shared/environment';
 })
 export class SignupService {
 
-  public user:RegisterUser|undefined;
+  public user!:RegisterUser;
 
-  apiUrl = 'http://localhost:8080/api/v1/auth/signup';
+  apiUrl = environment.registerurl;
   constructor(private http:HttpClient) { 
   }
   
