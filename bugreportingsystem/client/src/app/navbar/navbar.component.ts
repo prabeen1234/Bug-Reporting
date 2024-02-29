@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PrimeIcons, MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { SignupComponent } from '../auth/signup/signup.component';
 
 @Component({
   selector: 'app-navbar',
@@ -26,11 +28,14 @@ export class NavbarComponent {
         {
             label: 'Login',
             icon: PrimeIcons.USER
+            
         },
         {
           label: 'Signup',
-          icon: PrimeIcons.USER
-      },{
+          icon: PrimeIcons.USER,
+          routerLink : "/signup"
+      },
+      {
         label: 'Contact Us',
         icon: PrimeIcons.PHONE
     }
