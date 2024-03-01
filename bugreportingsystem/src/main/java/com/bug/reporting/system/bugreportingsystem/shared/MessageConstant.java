@@ -1,6 +1,7 @@
 package com.bug.reporting.system.bugreportingsystem.shared;
 
 public class MessageConstant {
+    public static final String codeSend="successfully send code to the email";
     public static final String userNotFound = "user is not found";
     public static final String password = "password is not correct";
     public static final String alreadyRegisterUser = "User is already register";

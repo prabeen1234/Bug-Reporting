@@ -26,7 +26,7 @@ public class UserBugService {
     private final ModelMapper modelMapper;
     private final FirebaseConfiguration firebaseConfiguration;
 
-    public ResponseEntity<?> addBugByUser(BugDto bugDto, MultipartFile photo, MultipartFile video) {
+    public void addBugByUser(BugDto bugDto, MultipartFile photo, MultipartFile video) {
        String fileName= firebaseConfiguration.upload(photo);
        String fileName1= firebaseConfiguration.upload(video);
         Bug bug = modelMapper.map(bugDto, Bug.class);
@@ -34,17 +34,16 @@ public class UserBugService {
         bug.setPhoto(fileName);
         bug.setVideo(fileName1);
         modelMapper.map(bugRepository.save(bug), BugDto.class);
-        return ResponseEntity.ok().body(MessageConstant.successMessage);
     }
 
-    public ResponseEntity<?> getAllBugs(Integer pageNumber, Integer pageSize) {
+    public List<BugDto> getAllBugs(Integer pageNumber, Integer pageSize) {
         Pageable p = PageRequest.of(pageNumber, pageSize, Sort.by("timeStamp"));
         Page<Bug> page = bugRepository.findAll(p);
         List<Bug> bugList = page.getContent();
         List<BugDto> bugDtoList = BugDto.mapToBugDto(bugList);
         if (bugDtoList.isEmpty()) {
-            return ResponseEntity.badRequest().body("bug is not found");
+            return bugDtoList;
         }
-        return ResponseEntity.ok(bugDtoList);
+        return null;
     }
 }

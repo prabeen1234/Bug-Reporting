@@ -11,17 +11,18 @@ import com.bug.reporting.system.bugreportingsystem.auth.model.ForgetPasswordDto;
 import com.bug.reporting.system.bugreportingsystem.auth.model.SignUpRequest;
 import com.bug.reporting.system.bugreportingsystem.auth.model.SigninRequest;
 import com.bug.reporting.system.bugreportingsystem.auth.repository.UserRepository;
+import com.bug.reporting.system.bugreportingsystem.exception.InvalidUserCredentialException;
+import com.bug.reporting.system.bugreportingsystem.exception.UserAlreadyExistException;
 import com.bug.reporting.system.bugreportingsystem.shared.MessageConstant;
+import com.bug.reporting.system.bugreportingsystem.shared.UserResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +40,15 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
+    @Value("${spring.mail.host}")
+    private String host;
+
+    @Value("${spring.mail.port}")
+    private Integer port;
+
+    @Value("${spring.mail.username}")
+    private String mail;
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoders;
     private final JwtService jwtService;
@@ -46,10 +56,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JavaMailSender mailSender;
 
     @Override
-    public ResponseEntity<?> signup(SignUpRequest request) {
+    public UserResponse signup(SignUpRequest request) {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
         if (userOptional.isPresent()) {
-            return ResponseEntity.badRequest().body(MessageConstant.alreadyRegisterUser);
+            throw new UserAlreadyExistException("User already exist");
         }
         var user = User.builder()
                 .firstName(request.getFirstName())
@@ -59,59 +69,45 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
-
-        return ResponseEntity.ok().body(MessageConstant.userRegister);
-
+        return new UserResponse(MessageConstant.successMessage);
     }
 
     @Override
-    public ResponseEntity<?> signin(SigninRequest request) {
-        try {
-            UserDetails userDetails = userService.loadUserByUsername(request.getEmail());
-            if (userDetails == null) {
-                log.info("User not found logging");
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( MessageConstant.userNotFound);
-            }
-
-            if (!passwordEncoders.matches(request.getPassword(), userDetails.getPassword())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstant.password);
-            }
-
-            String token = jwtService.generateToken(userDetails);
-            JwtAuthenticationResponse jwt = new JwtAuthenticationResponse(token);
-            return ResponseEntity.ok(jwt);
-        } catch (UsernameNotFoundException ex) {
-            log.error("UsernameNotFoundException: {}", ex.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstant.userNotFound);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(MessageConstant.internalServerError);
+    public JwtAuthenticationResponse signin(SigninRequest request) {
+        UserDetails userDetails = userService.loadUserByUsername(request.getEmail());
+        if (!passwordEncoders.matches(request.getPassword(), userDetails.getPassword())) {
+            throw new InvalidUserCredentialException("Invalid email and password combination");
         }
+
+        String token = jwtService.generateToken(userDetails);
+        return new JwtAuthenticationResponse(token);
     }
 
+
     @Override
-    public ResponseEntity<?> changePassword(ChangePasswordDto changePasswordDto) {
+    public UserResponse changePassword(ChangePasswordDto changePasswordDto) {
         Optional<User> optionalUser = userRepository.findByEmail(changePasswordDto.getEmail());
         if (optionalUser.isPresent()) {
             if (passwordEncoders.matches(changePasswordDto.getNewPassword(), optionalUser.get().getPassword())) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(MessageConstant.compareOldAndNewPassword);
+                return new UserResponse(MessageConstant.compareOldAndNewPassword);
             }
             User user = optionalUser.get();
             user.setPassword(passwordEncoders.encode(changePasswordDto.getNewPassword()));
             userRepository.save(user);
-            return ResponseEntity.ok().body(MessageConstant.updatedPassword);
+            return new UserResponse(MessageConstant.updatedPassword);
         }
-        return ResponseEntity.badRequest().body(MessageConstant.userNotFound);
+        return new UserResponse(MessageConstant.userNotFound);
     }
 
-    public String generateCode(String email) {
+    public UserResponse generateCode(String email) {
         int min = 100000;
         int max = 999999;
         int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         String forgetPasswordCode = String.valueOf(randomNum);
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com");
-        mailSender.setPort(587);
-        mailSender.setUsername("rimeshsapkota12345@gmail.com");
+        mailSender.setHost(host);
+        mailSender.setPort(port);
+        mailSender.setUsername(mail);
         mailSender.setPassword("srcl yxbs lldm lvtl");
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
@@ -122,27 +118,27 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         message.setSubject("your password reset code");
         message.setText("your reset password code is:" + forgetPasswordCode);
         mailSender.send(message);
-      Optional<User> optionalUser = userRepository.findByEmail(email);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
             log.info("this donot work");
             User user = optionalUser.get();
             user.setForgetPasswordCode(forgetPasswordCode);
             user.setForgetPasswordCodeTimestamp(new Date(System.currentTimeMillis()));
             userRepository.save(user);
-            return forgetPasswordCode;
+            return new UserResponse(MessageConstant.codeSend);
         }
-        return "user is not present";
+        return new UserResponse(MessageConstant.userNotFound);
     }
 
     @Override
-    public ResponseEntity<?> forgetPassword(ForgetPasswordDto forgetPasswordDto) {
+    public UserResponse forgetPassword(ForgetPasswordDto forgetPasswordDto) {
         Optional<User> optionalUser = userRepository.findByForgetPasswordCode(forgetPasswordDto.getCode());
         if (optionalUser.isPresent() && forgetPasswordDto.getConfirmPassword().equals(forgetPasswordDto.getNewPassword())) {
             optionalUser.get().setPassword(passwordEncoders.encode(forgetPasswordDto.getNewPassword()));
             userRepository.save(optionalUser.get());
-            return ResponseEntity.ok().body(MessageConstant.updatedPassword);
+            return new UserResponse(MessageConstant.updatedPassword);
         }
-        return ResponseEntity.badRequest().body(MessageConstant.compareCodeNewAndConfirmPassword);
+        return new UserResponse(MessageConstant.compareCodeNewAndConfirmPassword);
     }
 
     @Scheduled(fixedDelay = 120000)

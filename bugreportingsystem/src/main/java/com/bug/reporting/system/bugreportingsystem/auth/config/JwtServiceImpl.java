@@ -1,6 +1,7 @@
 package com.bug.reporting.system.bugreportingsystem.auth.config;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -32,7 +33,12 @@ public class JwtServiceImpl implements JwtService {
     public String extractUserName(String token) {
         return extractClaims(token).getSubject();
     }
-
+    /**
+     * Generates a JWT (JSON Web Token) based on the provided UserDetails.
+     *
+     * @param userDetails The UserDetails containing information about the user.
+     * @return The generated JWT.
+     */
     @Override
     public String generateToken(UserDetails userDetails) {
         return Jwts.builder()
@@ -48,10 +54,23 @@ public class JwtServiceImpl implements JwtService {
         return userDetails.getUsername().equals(extractUserName(token)) && isTokenExpired(token);
     }
 
+    /**
+     * Checks if the expiration date of a given JWT (JSON Web Token) is in the future,
+     * indicating that the token is not yet expired.
+     *
+     * @param token The JWT to check for expiration.
+     * @return {@code true} if the token is not expired, {@code false} otherwise.
+     */
     public boolean isTokenExpired(String token) {
-        return extractClaims(token).getExpiration().before(new Date());
+        return extractClaims(token).getExpiration().after(new Date());
     }
 
+    /**
+     * Extracts the claims (payload) from a given JWT (JSON Web Token).
+     *
+     * @param token The JWT from which to extract claims.
+     * @return A Claims object representing the payload of the JWT.
+     */
     private Claims extractClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
