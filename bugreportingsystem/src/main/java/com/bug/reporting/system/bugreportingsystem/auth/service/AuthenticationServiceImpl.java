@@ -59,7 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public UserResponse signup(SignUpRequest request) {
         Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
         if (userOptional.isPresent()) {
-            throw new UserAlreadyExistException("User already exist");
+            throw new UserAlreadyExistException(MessageConstant.ALREADY_REGISTER);
         }
         var user = User.builder()
                 .firstName(request.getFirstName())
@@ -69,14 +69,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
-        return new UserResponse(MessageConstant.successMessage);
+        return new UserResponse(MessageConstant.SUCCESSFULLY_SAVE);
     }
 
     @Override
     public JwtAuthenticationResponse signin(SigninRequest request) {
         UserDetails userDetails = userService.loadUserByUsername(request.getEmail());
         if (!passwordEncoders.matches(request.getPassword(), userDetails.getPassword())) {
-            throw new InvalidUserCredentialException("Invalid email and password combination");
+            throw new InvalidUserCredentialException(MessageConstant.INVALID_EMAIL_AND_PASSWORD_COMBINATION);
         }
 
         String token = jwtService.generateToken(userDetails);
@@ -89,12 +89,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Optional<User> optionalUser = userRepository.findByEmail(changePasswordDto.getEmail());
         if (optionalUser.isPresent()) {
             if (passwordEncoders.matches(changePasswordDto.getNewPassword(), optionalUser.get().getPassword())) {
-                return new UserResponse(MessageConstant.compareOldAndNewPassword);
+                return new UserResponse(MessageConstant.COMPARE_OLD_AND_NEW_PASSWORD);
             }
             User user = optionalUser.get();
             user.setPassword(passwordEncoders.encode(changePasswordDto.getNewPassword()));
             userRepository.save(user);
-            return new UserResponse(MessageConstant.updatedPassword);
+            return new UserResponse(MessageConstant.SUCCESSFULLY_UPDATED_THE_PASSWORD);
         }
         return new UserResponse(MessageConstant.userNotFound);
     }
@@ -125,7 +125,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             user.setForgetPasswordCode(forgetPasswordCode);
             user.setForgetPasswordCodeTimestamp(new Date(System.currentTimeMillis()));
             userRepository.save(user);
-            return new UserResponse(MessageConstant.codeSend);
+            return new UserResponse(MessageConstant.SEND_CODE_TO_THE_EMAIL);
         }
         return new UserResponse(MessageConstant.userNotFound);
     }
@@ -136,9 +136,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (optionalUser.isPresent() && forgetPasswordDto.getConfirmPassword().equals(forgetPasswordDto.getNewPassword())) {
             optionalUser.get().setPassword(passwordEncoders.encode(forgetPasswordDto.getNewPassword()));
             userRepository.save(optionalUser.get());
-            return new UserResponse(MessageConstant.updatedPassword);
+            return new UserResponse(MessageConstant.SUCCESSFULLY_UPDATED_THE_PASSWORD);
         }
-        return new UserResponse(MessageConstant.compareCodeNewAndConfirmPassword);
+        return new UserResponse(MessageConstant.COMPARE_CODE_NEW_AND_CONFIRM_PASSWORD);
     }
 
     @Scheduled(fixedDelay = 120000)

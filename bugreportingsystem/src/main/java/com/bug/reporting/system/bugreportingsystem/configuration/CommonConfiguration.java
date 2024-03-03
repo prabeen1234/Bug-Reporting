@@ -19,12 +19,14 @@ public class CommonConfiguration {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+
     @Bean
     public UserResponse userResponse(){
         return UserResponse.builder()
                 .message("Error in bug reporting system")
                 .build();
     }
+
     @Bean
     public JavaMailSender mailSender() {
         return new JavaMailSenderImpl();
