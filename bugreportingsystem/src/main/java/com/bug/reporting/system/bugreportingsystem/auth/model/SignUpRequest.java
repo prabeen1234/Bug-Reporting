@@ -1,9 +1,11 @@
 package com.bug.reporting.system.bugreportingsystem.auth.model;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.min;
 
 
 @Data
@@ -11,24 +13,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpRequest {
-    @NotNull(message = "firstName is required")
-    @NotEmpty(message = "firstName is required")
-    @Size(min = 2, max = 50, message = "firstName must be between 2 and 20 characters")
+    @Pattern(regexp = "[a-zA-Z]{2,50}", message = "firstName must be between 2 and 50 characters and contain only letters")
     private String firstName;
 
-    @NotNull(message = "lastName is required")
-    @NotEmpty(message = "lastName is required")
-    @Size(min = 2, max = 50, message = "lastName must be between 2 and 20 characters")
+    @Pattern(regexp = "[a-zA-Z]{2,50}", message = "lastName must be between 2 and 50 characters and contain only letters")
     private String lastName;
 
-    @NotNull(message = "Email is required")
-    @NotEmpty(message = "Email is required")
+    @Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", message = "Please provide a valid email address")
     private String email;
 
-    @NotNull(message = "Password is required")
-    @NotEmpty(message = "Password is required")
-    @Size(min = 6, max = 20, message = "Password must be between 6 and 20 characters")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,20}$", message = "Password must meet the specified criteria")
     private String password;
 
 }

@@ -1,5 +1,6 @@
 package com.bug.reporting.system.bugreportingsystem.bug.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,10 +21,8 @@ public class Bug {
     private Integer bugId;
     private String bugTitle;
     private String bugDescription;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStamp;
-
     private String photo;
     private String video;
 

@@ -1,14 +1,14 @@
 package com.bug.reporting.system.bugreportingsystem.shared;
 
 public class MessageConstant {
+    public static final String SEND_CODE_TO_THE_EMAIL ="successfully send code to the email";
     public static final String userNotFound = "user is not found";
-    public static final String password = "password is not correct";
-    public static final String alreadyRegisterUser = "User is already register";
-    public static final String userRegister = "successfully register";
-    public static final String successMessage = "successfully save";
-    public static final String internalServerError = "Internal server error";
-    public static final String compareOldAndNewPassword="old and new password is same!please write new password";
-    public static final String updatedPassword="successfully updated the password";
-    public static final String compareCodeNewAndConfirmPassword="code is not matched and confirm and new password is not same";
+    public static final String INVALID_EMAIL_AND_PASSWORD_COMBINATION = "\"Invalid email and password combination";
+    public static final String ALREADY_REGISTER = "User is already register";
+    public static final String SUCCESSFULLY_SAVE = "successfully save";
+    public static final String SERVER_ERROR = "Internal server error";
+    public static final String COMPARE_OLD_AND_NEW_PASSWORD ="old and new password is same!please write new password";
+    public static final String SUCCESSFULLY_UPDATED_THE_PASSWORD ="successfully updated the password";
+    public static final String COMPARE_CODE_NEW_AND_CONFIRM_PASSWORD ="code is not matched and confirm and new password is not same";
 
 }

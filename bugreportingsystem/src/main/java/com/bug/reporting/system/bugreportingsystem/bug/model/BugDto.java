@@ -1,6 +1,7 @@
 package com.bug.reporting.system.bugreportingsystem.bug.model;
 
 import com.bug.reporting.system.bugreportingsystem.bug.entity.Bug;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -13,7 +14,9 @@ import java.util.List;
 @Getter
 @Setter
 public class BugDto {
+    @JsonProperty("bug_title")
     private String bugTitle;
+    @JsonProperty("bug_description")
     private String bugDescription;
     private String photo;
     private String video;
