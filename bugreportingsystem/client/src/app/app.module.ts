@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,8 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     SignupComponent,
     FooterComponent,
+    ChangePasswordComponent
+   
     
   ],
   imports: [

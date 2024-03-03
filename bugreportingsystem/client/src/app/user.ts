@@ -8,3 +8,7 @@ export interface RegisterUser{
         email:string;
         password:string;
     }
+    export interface ChangePassword{
+        email:string;
+        newPassword:string;
+    }
