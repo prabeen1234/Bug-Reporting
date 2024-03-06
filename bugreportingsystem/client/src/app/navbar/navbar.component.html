@@ -1,5 +1,20 @@
 <p-menubar [model]="items"> 
     <ng-template pTemplate="start">
-        <img src="" height="40" class="mr-2" />
     </ng-template>
+    
+    <ng-template pTemplate="end">
+        <div class="d-flex gap-1">
+            <button class="btn btn-success" [routerLink]="['/signup']">
+              <i class="pi pi-user-plus"></i> Signup
+            </button>
+            <button class="btn btn-primary" [routerLink]="['/login']">
+              <i class="pi pi-sign-in"></i> Login
+            </button>
+          </div>
+    </ng-template>
+    
+    
 </p-menubar>
+
+
+

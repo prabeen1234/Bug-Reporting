@@ -11,6 +11,7 @@ import { SignupComponent } from '../auth/signup/signup.component';
 })
 export class NavbarComponent {
   items!: MenuItem[];
+  items1! : MenuItem[]
 
   ngOnInit() {
       this.items = [
@@ -20,21 +21,13 @@ export class NavbarComponent {
           },
           {
               label: 'About',
-              icon: PrimeIcons.EXCLAMATION_CIRCLE
+              icon: PrimeIcons.EXCLAMATION_CIRCLE,
+              routerLink: "/about"
           },{
             label: 'Services',
             icon: PrimeIcons.SERVER,
         },
-        {
-            label: 'Login',
-            icon: PrimeIcons.USER
-            
-        },
-        {
-          label: 'Signup',
-          icon: PrimeIcons.USER,
-          routerLink : "/signup"
-      },
+        
       {
         label: 'Contact Us',
         icon: PrimeIcons.PHONE
