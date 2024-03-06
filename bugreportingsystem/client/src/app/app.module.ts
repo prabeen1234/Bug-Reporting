@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { PasswordModule } from 'primeng/password';
+import { AboutComponent } from './about/about.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { PasswordModule } from 'primeng/password';
     NavbarComponent,
     SignupComponent,
     FooterComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AboutComponent
    
     
   ],
