@@ -1,11 +1,12 @@
 package com.bug.reporting.system.bugreportingsystem.auth.controller;
 
 import com.bug.reporting.system.bugreportingsystem.auth.config.JwtAuthenticationResponse;
-import com.bug.reporting.system.bugreportingsystem.auth.model.ChangePasswordDto;
-import com.bug.reporting.system.bugreportingsystem.auth.model.ForgetPasswordDto;
-import com.bug.reporting.system.bugreportingsystem.auth.model.SignUpRequest;
-import com.bug.reporting.system.bugreportingsystem.auth.model.SigninRequest;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.ChangePasswordDto;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.ForgetPasswordDto;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.SignUpRequest;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.SigninRequest;
 import com.bug.reporting.system.bugreportingsystem.auth.service.AuthenticationService;
+import com.bug.reporting.system.bugreportingsystem.shared.ApiURL;
 import com.bug.reporting.system.bugreportingsystem.shared.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -13,32 +14,30 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
-@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/signup")
+    @PostMapping(ApiURL.USER_SIGN_UP)
     public UserResponse signup(@RequestBody @Validated SignUpRequest request) {
         return authenticationService.signup(request);
     }
 
-    @PostMapping("/signin")
+    @PostMapping(ApiURL.USER_SIGN_IN)
     public JwtAuthenticationResponse signin(@RequestBody SigninRequest request) {
         return authenticationService.signin(request);
     }
 
-    @PostMapping("/change_password")
+    @PostMapping(ApiURL.CHANGE_PASSWORD)
     public UserResponse changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
         return authenticationService.changePassword(changePasswordDto);
     }
 
-    @PostMapping("/forget_password")
+    @PostMapping(ApiURL.FORGET_PASSWORD)
     public UserResponse forgetPassword(@RequestBody ForgetPasswordDto forgetPasswordDto) {
         return authenticationService.forgetPassword(forgetPasswordDto);
     }
 
-    @PostMapping("/generate_code")
+    @PostMapping(ApiURL.CODE_GENERATE)
     public UserResponse generateCode(@RequestParam String email) {
         return authenticationService.generateCode(email);
     }

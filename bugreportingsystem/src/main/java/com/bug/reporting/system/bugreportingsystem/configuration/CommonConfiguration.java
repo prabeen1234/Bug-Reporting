@@ -1,5 +1,6 @@
 package com.bug.reporting.system.bugreportingsystem.configuration;
 
+import com.bug.reporting.system.bugreportingsystem.shared.ApiResponse;
 import com.bug.reporting.system.bugreportingsystem.shared.UserResponse;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -49,5 +50,12 @@ public class CommonConfiguration {
                 .description("This API exposes endpoints to manage student.")
                 .contact(myContact);
         return new OpenAPI().info(information).servers(List.of(server));
+    }
+    @Bean
+    public ApiResponse getStatus() {
+        return ApiResponse.builder()
+                .message("Exception occured in bug reporting system")
+                .operation("Unknown Operation")
+                .build();
     }
 }

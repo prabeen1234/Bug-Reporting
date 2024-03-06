@@ -1,5 +1,6 @@
 package com.bug.reporting.system.bugreportingsystem.bug.entity;
 
+import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

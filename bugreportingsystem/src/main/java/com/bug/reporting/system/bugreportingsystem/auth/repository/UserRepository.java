@@ -1,6 +1,7 @@
 package com.bug.reporting.system.bugreportingsystem.auth.repository;
 
 
+import com.bug.reporting.system.bugreportingsystem.auth.entity.Role;
 import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,5 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByForgetPasswordCode(String code);
 
     List<User> findByForgetPasswordCodeTimestampBefore(Timestamp twoMinutesAgo);
+
+    Long countByRole(Role role);
 }
 

@@ -1,4 +1,4 @@
-package com.bug.reporting.system.bugreportingsystem.auth.model;
+package com.bug.reporting.system.bugreportingsystem.auth.dto;
 
 import lombok.*;
 

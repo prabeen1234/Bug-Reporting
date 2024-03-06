@@ -1,11 +1,10 @@
-package com.bug.reporting.system.bugreportingsystem.auth.model;
-import com.fasterxml.jackson.annotation.JsonProperty;
+package com.bug.reporting.system.bugreportingsystem.auth.dto;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.checkerframework.checker.units.qual.min;
 
 
 @Data
@@ -14,6 +13,7 @@ import org.checkerframework.checker.units.qual.min;
 @AllArgsConstructor
 public class SignUpRequest {
     @Pattern(regexp = "[a-zA-Z]{2,50}", message = "firstName must be between 2 and 50 characters and contain only letters")
+    @JsonAlias("first_name")
     private String firstName;
 
     @Pattern(regexp = "[a-zA-Z]{2,50}", message = "lastName must be between 2 and 50 characters and contain only letters")

@@ -14,17 +14,17 @@
                     <div class="mb-4">
                       <div class="input-group">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <input type="text" id="fname" #firstname="ngModel" [class.is-invalid]="firstname.invalid && firstname.touched" class="form-control" name="firstName" placeholder="Enter your firstname" [(ngModel)]="data.firstName" required>
+                        <input type="text" id="firstName" #firstName="ngModel" [class.is-invalid]="firstName.invalid && firstName.touched" class="form-control" name="firstName" placeholder="Enter your firstname" [(ngModel)]="data.firstName" required>
                       </div>
-                      <small [class.d-none]="firstname.valid || firstname.untouched">First name is required</small>
+                      <small [class.d-none]="firstName.valid || firstName.untouched">First name is required</small>
                     </div>
 
                     <div class="mb-4">
                         <div class="input-group">
                           <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                          <input type="text" id="lname" #lastname="ngModel" [class.is-invalid]="lastname.invalid && lastname.touched" class="form-control" name="lastName" placeholder="Enter your lastname" [(ngModel)]="data.lastName" required>
+                          <input type="text" id="lastName" #lastName="ngModel" [class.is-invalid]="lastName.invalid && lastName.touched" class="form-control" name="lastName" placeholder="Enter your lastname" [(ngModel)]="data.lastName" required>
                         </div>
-                        <small [class.d-none]="lastname.valid || lastname.untouched">First name is required</small>
+                        <small [class.d-none]="lastName.valid || lastName.untouched">Last name is required</small>
                       </div>
   
                     <div class="mb-4">

@@ -19,7 +19,6 @@ export class SignupComponent {
     saveUser() {
     this.registerService.registerUser(this.data).subscribe({
       next:(response)=>{
-        console.log("successfully")
          this.toast.success("successfully register")
       },
       error:(error)=>{

@@ -4,12 +4,12 @@ package com.bug.reporting.system.bugreportingsystem.auth.service;
 import com.bug.reporting.system.bugreportingsystem.auth.config.JwtAuthenticationResponse;
 import com.bug.reporting.system.bugreportingsystem.auth.config.JwtService;
 import com.bug.reporting.system.bugreportingsystem.auth.config.UserDetailService;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.ChangePasswordDto;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.ForgetPasswordDto;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.SignUpRequest;
+import com.bug.reporting.system.bugreportingsystem.auth.dto.SigninRequest;
 import com.bug.reporting.system.bugreportingsystem.auth.entity.Role;
 import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
-import com.bug.reporting.system.bugreportingsystem.auth.model.ChangePasswordDto;
-import com.bug.reporting.system.bugreportingsystem.auth.model.ForgetPasswordDto;
-import com.bug.reporting.system.bugreportingsystem.auth.model.SignUpRequest;
-import com.bug.reporting.system.bugreportingsystem.auth.model.SigninRequest;
 import com.bug.reporting.system.bugreportingsystem.auth.repository.UserRepository;
 import com.bug.reporting.system.bugreportingsystem.exception.InvalidUserCredentialException;
 import com.bug.reporting.system.bugreportingsystem.exception.UserAlreadyExistException;
@@ -40,20 +40,17 @@ import java.util.concurrent.ThreadLocalRandom;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
-    @Value("${spring.mail.host}")
-    private String host;
-
-    @Value("${spring.mail.port}")
-    private Integer port;
-
-    @Value("${spring.mail.username}")
-    private String mail;
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoders;
     private final JwtService jwtService;
     private final UserDetailService userService;
     private final JavaMailSender mailSender;
+    @Value("${spring.mail.host}")
+    private String host;
+    @Value("${spring.mail.port}")
+    private Integer port;
+    @Value("${spring.mail.username}")
+    private String mail;
 
     @Override
     public UserResponse signup(SignUpRequest request) {
@@ -80,7 +77,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         String token = jwtService.generateToken(userDetails);
-        return new JwtAuthenticationResponse(token);
+        return new JwtAuthenticationResponse(token, MessageConstant.SUCCESSFULLY_LOGIN);
     }
 
 
@@ -96,7 +93,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             userRepository.save(user);
             return new UserResponse(MessageConstant.SUCCESSFULLY_UPDATED_THE_PASSWORD);
         }
-        return new UserResponse(MessageConstant.userNotFound);
+        return new UserResponse(MessageConstant.USER_NOT_FOUND);
     }
 
     public UserResponse generateCode(String email) {
@@ -104,6 +101,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         int max = 999999;
         int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
         String forgetPasswordCode = String.valueOf(randomNum);
+
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(host);
         mailSender.setPort(port);
@@ -120,14 +118,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         mailSender.send(message);
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isPresent()) {
-            log.info("this donot work");
             User user = optionalUser.get();
             user.setForgetPasswordCode(forgetPasswordCode);
             user.setForgetPasswordCodeTimestamp(new Date(System.currentTimeMillis()));
             userRepository.save(user);
             return new UserResponse(MessageConstant.SEND_CODE_TO_THE_EMAIL);
         }
-        return new UserResponse(MessageConstant.userNotFound);
+        return new UserResponse(MessageConstant.USER_NOT_FOUND);
     }
 
     @Override

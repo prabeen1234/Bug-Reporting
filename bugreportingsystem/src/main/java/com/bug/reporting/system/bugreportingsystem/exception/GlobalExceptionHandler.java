@@ -1,16 +1,21 @@
 package com.bug.reporting.system.bugreportingsystem.exception;
 
+import com.bug.reporting.system.bugreportingsystem.shared.ApiResponse;
 import io.jsonwebtoken.security.SignatureException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
+@RequiredArgsConstructor
 public class GlobalExceptionHandler {
+    private final ApiResponse status;
 
     /**
      * Handle SignatureException thrown by JwtService
@@ -49,14 +54,14 @@ public class GlobalExceptionHandler {
      * The message is a HashMap with field names as keys and error messages as values.
      * </p>
      *
-     * @param userNotFoundException Exception object
+     * @param ex Exception object
      * @return error message
      */
     @ExceptionHandler(UserNotFoundException.class)
-    public Map<String, String> handleUserNotFound(UserNotFoundException userNotFoundException) {
-        Map<String, String> entryMap = new HashMap<>();
-        entryMap.put("error:", userNotFoundException.getMessage());
-        return entryMap;
+    public ResponseEntity<ApiResponse> handleUserNotFoundException(UserNotFoundException ex) {
+        ex.printStackTrace();
+        status.setMessage(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(status);
     }
 
     /**
@@ -67,12 +72,14 @@ public class GlobalExceptionHandler {
      * @param ex Exception object
      * @return error message
      */
-    @ExceptionHandler(InvalidUserCredentialException.class)
-    public Map<String, String> handleInvalidUserCredentialException(InvalidUserCredentialException ex) {
-        Map<String, String> entryMap = new HashMap<>();
-        entryMap.put("error:", ex.getMessage());
-        return entryMap;
-    }
+//    @ExceptionHandler(InvalidUserCredentialException.class)
+//    public ResponseEntity<Map<String, String>> handleInvalidUserCredentialException(InvalidUserCredentialException ex) {
+//        Map<String, String> resp = new HashMap<>();
+//        String message= ex.getLocalizedMessage();
+//        resp.put("error:", message);
+//        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+//    }
+
     /**
      * <p>
      * This method handle UserAlreadyExist
@@ -82,10 +89,18 @@ public class GlobalExceptionHandler {
      * @return error message
      */
     @ExceptionHandler(UserAlreadyExistException.class)
-    public Map<String, String> handleUserAlreadyExistException(UserAlreadyExistException ex) {
-        Map<String, String> entryMap = new HashMap<>();
-        entryMap.put("error:", ex.getMessage());
-        return entryMap;
+    public ResponseEntity<Map<String, String>> handleUserAlreadyExistException(UserAlreadyExistException ex) {
+        Map<String, String> resp = new HashMap<>();
+        String message = ex.getLocalizedMessage();
+        resp.put("error:", message);
+        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidUserCredentialException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ApiResponse> handleInvalidUserCredentialException(InvalidUserCredentialException ex) {
+        ex.printStackTrace();
+        status.setMessage(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(status);
+    }
 }

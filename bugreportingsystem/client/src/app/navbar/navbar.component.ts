@@ -1,19 +1,26 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { PrimeIcons, MenuItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { SignupComponent } from '../auth/signup/signup.component';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
+import { SharedService } from '../shared/shared.service';
+import { MenuItem, PrimeIcons } from 'primeng/api';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+  constructor(private sharedService: SharedService){} 
+  isLoggedIn!: boolean;
   items!: MenuItem[];
   items1! : MenuItem[]
-
   ngOnInit() {
+      this.sharedService.loginStatus$.subscribe((status) => {
+        this.isLoggedIn = status;
+      });
+  
+    
       this.items = [
           {
               label: 'Home',
@@ -33,5 +40,7 @@ export class NavbarComponent {
         icon: PrimeIcons.PHONE
     }
       ];
-  }
+
+
+}
 }
