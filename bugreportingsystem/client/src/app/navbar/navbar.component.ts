@@ -18,6 +18,7 @@ export class NavbarComponent {
           {
               label: 'Home',
               icon: PrimeIcons.HOME,
+              routerLink: '/'
           },
           {
               label: 'About',
