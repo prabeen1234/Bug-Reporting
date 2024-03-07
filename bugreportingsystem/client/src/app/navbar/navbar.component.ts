@@ -25,6 +25,7 @@ export class NavbarComponent implements OnInit {
           {
               label: 'Home',
               icon: PrimeIcons.HOME,
+              routerLink: '/'
           },
           {
               label: 'About',
