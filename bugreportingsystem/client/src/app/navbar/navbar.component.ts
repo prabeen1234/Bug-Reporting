@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
   constructor(private sharedService: SharedService){} 
   isLoggedIn!: boolean;
   items!: MenuItem[];
-  items1! : MenuItem[]
   ngOnInit() {
       this.sharedService.loginStatus$.subscribe((status) => {
         this.isLoggedIn = status;
@@ -25,7 +24,11 @@ export class NavbarComponent implements OnInit {
           {
               label: 'Home',
               icon: PrimeIcons.HOME,
+<<<<<<< Updated upstream
               routerLink: '/'
+=======
+              routerLink:"/"
+>>>>>>> Stashed changes
           },
           {
               label: 'About',

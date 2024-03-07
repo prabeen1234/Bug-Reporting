@@ -1,67 +1,67 @@
-<section class="vh-100 --bs-info-bg-subtle ">
-    <div class="container py-5 h-100 --bs-info-bg-subtle">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-          <div class="card bg-light text-dark" style="border-radius: 1rem">
-            <div class="card-body p-5 text-center">
-              <form (ngSubmit)="onSubmit()">
-                <h2 class="text-center">Login</h2>
-  
-                <div class="form-group">
-                  <label for="email" class="float-left">Email:</label>
-                  <input
-                    type="email"
-                    #email="ngModel"
-                    [class.is-invalid]="email.invalid && email.touched"
-                    name="email"
-                    [(ngModel)]="data.email"
-                    class="form-control"
-                    placeholder="Enter your email"
-                    required
-                  />
-                  <small
-                    [class.d-none]="email.valid || email.untouched"
-                    class="text-danger"
-                    >Email is required</small
-                  >
-                </div>
-  
-                <div class="form-group">
-                  <label for="password" class="float-left">Password:</label>
-                  <input
-                    type="password"
-                    #password="ngModel"
-                    [class.is-invalid]="password.invalid && password.touched"
-                    id="password"
-                    name="password"
-                    [(ngModel)]="data.password"
-                    class="form-control"
-                    placeholder="Enter your password"
-                    required
-                  />
-                  <small
-                    [class.d-none]="password.valid || password.untouched"
-                    class="text-danger"
-                    >Password is required</small
-                  >
-                </div>
-                <br>
-  <div>
-                <button type="submit" class="btn btn-lg btn-primary submit-btn">
+<section class="vh-100 --bs-info-bg-subtle">
+  <div class="container py-5 h-100 --bs-info-bg-subtle">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-light text-dark" style="border-radius: 1rem">
+          <div class="card-body p-5 text-center">
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+              <h2 class="text-center">Login</h2>
+
+              <div class="form-group">
+                <label for="email" class="float-left">Email:</label>
+                <input
+                  type="email"
+                  #email="ngModel"
+                  [class.is-invalid]="email.invalid && email.touched"
+                  name="email"
+                  [(ngModel)]="data.email"
+                  class="form-control"
+                  placeholder="Enter your email"
+                  required
+                  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                />
+                <small
+                  [class.d-none]="email.valid || email.untouched"
+                  class="text-danger"
+                  >Email is required</small
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="float-left">Password:</label>
+                <input
+                  type="password"
+                  #password="ngModel"
+                  [class.is-invalid]="password.invalid && password.touched"
+                  id="password"
+                  name="password"
+                  [(ngModel)]="data.password"
+                  class="form-control"
+                  placeholder="Enter your password"
+                  required
+                />
+                <small
+                  [class.d-none]="password.valid || password.untouched"
+                  class="text-danger"
+                  >Password is required</small
+                >
+              </div>
+              <br />
+              <div>
+                <button type="submit" class="btn btn-lg btn-primary submit-btn" [disabled]="loginForm.invalid">
                   Login
                 </button>
-            </div>
-              </form>
-            </div>
-            <div>
-              <p class="text-center">
-                Don't have an account?
-                <a href="#!" class="text-dark-50 fw-bold">Sign Up</a>
-              </p>
-            </div>
+              </div>
+            </form>
+          </div>
+          <div>
+            <p class="text-center">
+              Don't have an account?
+              <a href="#!" class="text-dark-50 fw-bold">Sign Up</a>
+            </p>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

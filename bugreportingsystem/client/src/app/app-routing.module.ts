@@ -7,7 +7,11 @@ import { AboutComponent } from './about/about.component';
 import { HomebodyComponent } from './homebody/homebody.component';
 
 const routes: Routes = [
+<<<<<<< Updated upstream
   { path:'', component: HomebodyComponent},
+=======
+  {path:'', component:HomebodyComponent},
+>>>>>>> Stashed changes
   { path:'signup', component: SignupComponent},
   {path: 'login', component: LoginComponent},
   {path:'changepassword',component:ChangePasswordComponent},

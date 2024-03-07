@@ -1,5 +1,6 @@
 package com.bug.reporting.system.bugreportingsystem.auth.config;
 
+import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

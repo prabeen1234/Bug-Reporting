@@ -1,7 +1,6 @@
 package com.bug.reporting.system.bugreportingsystem.bug.entity;
 
 import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,5 +26,6 @@ public class Bug {
     private String photo;
     private String video;
 
-
+    @ManyToOne
+    private User user;
 }

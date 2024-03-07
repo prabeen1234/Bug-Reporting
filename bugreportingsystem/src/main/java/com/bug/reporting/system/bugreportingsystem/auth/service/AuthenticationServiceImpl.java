@@ -13,6 +13,7 @@ import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
 import com.bug.reporting.system.bugreportingsystem.auth.repository.UserRepository;
 import com.bug.reporting.system.bugreportingsystem.exception.InvalidUserCredentialException;
 import com.bug.reporting.system.bugreportingsystem.exception.UserAlreadyExistException;
+import com.bug.reporting.system.bugreportingsystem.exception.UserNotFoundException;
 import com.bug.reporting.system.bugreportingsystem.shared.MessageConstant;
 import com.bug.reporting.system.bugreportingsystem.shared.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -83,17 +86,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public UserResponse changePassword(ChangePasswordDto changePasswordDto) {
-        Optional<User> optionalUser = userRepository.findByEmail(changePasswordDto.getEmail());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> optionalUser = userRepository.findByEmail(authentication.getName());
         if (optionalUser.isPresent()) {
-            if (passwordEncoders.matches(changePasswordDto.getNewPassword(), optionalUser.get().getPassword())) {
-                return new UserResponse(MessageConstant.COMPARE_OLD_AND_NEW_PASSWORD);
-            }
             User user = optionalUser.get();
-            user.setPassword(passwordEncoders.encode(changePasswordDto.getNewPassword()));
-            userRepository.save(user);
-            return new UserResponse(MessageConstant.SUCCESSFULLY_UPDATED_THE_PASSWORD);
+            if (changePasswordDto.getNewPassword().equals(changePasswordDto.getConfirmPassword())) {
+                if (passwordEncoders.matches(changePasswordDto.getOldPassword(), user.getPassword())) {
+                    user.setPassword(passwordEncoders.encode(changePasswordDto.getConfirmPassword()));
+                    userRepository.save(user);
+                    return new UserResponse(MessageConstant.SUCCESSFULLY_UPDATED_THE_PASSWORD);
+                }
+            }
         }
-        return new UserResponse(MessageConstant.USER_NOT_FOUND);
+        throw new UserNotFoundException(MessageConstant.USER_NOT_FOUND);
     }
 
     public UserResponse generateCode(String email) {

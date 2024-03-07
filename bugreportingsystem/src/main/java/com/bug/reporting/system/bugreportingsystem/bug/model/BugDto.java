@@ -21,6 +21,7 @@ public class BugDto {
     private String photo;
     private String video;
     private Date timeStamp;
+    private Integer userId;
 
     public static List<BugDto> mapToBugDto(List<Bug> bugList) {
         List<BugDto> bugDtoList = new ArrayList<>();

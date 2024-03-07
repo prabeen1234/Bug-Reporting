@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginUser } from 'src/app/user';
 import { SharedService } from 'src/app/shared/shared.service';
 import { ToasterService } from '../service/toaster.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,18 +21,19 @@ export class LoginComponent {
     private loginService: LoginService,
     private toast: ToastrService,
     private sharedService: SharedService,
+    private router:Router,
     private toasterservice:ToasterService
   ) {}
   onSubmit() {
     this.loginService.loginUser(this.data).subscribe({
       next: (response) => {
         this.toast.success(response.message);
-        this.sharedService.setLoginStatuss(true);
         localStorage.setItem(
           'currentUser',
           JSON.stringify({ token: response, name: name })
         );
-        
+        this.sharedService.setLoginStatuss(true);
+        this.router.navigate(['home'])
       },
       error: (err) => {
         if(err.status===401){

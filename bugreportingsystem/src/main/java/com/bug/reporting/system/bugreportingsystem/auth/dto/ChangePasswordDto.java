@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class ChangePasswordDto {
-    private String email;
+    private String oldPassword;
     private String newPassword;
+    private String confirmPassword;
 }

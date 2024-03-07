@@ -3,6 +3,7 @@ package com.bug.reporting.system.bugreportingsystem.exception;
 import com.bug.reporting.system.bugreportingsystem.shared.ApiResponse;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
+@Slf4j
 public class GlobalExceptionHandler {
     private final ApiResponse status;
 
@@ -59,26 +61,10 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<ApiResponse> handleUserNotFoundException(UserNotFoundException ex) {
-        ex.printStackTrace();
         status.setMessage(ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(status);
     }
 
-    /**
-     * <p>
-     * This method handle InvalidUserCredential i.e email password etc
-     * </p>
-     *
-     * @param ex Exception object
-     * @return error message
-     */
-//    @ExceptionHandler(InvalidUserCredentialException.class)
-//    public ResponseEntity<Map<String, String>> handleInvalidUserCredentialException(InvalidUserCredentialException ex) {
-//        Map<String, String> resp = new HashMap<>();
-//        String message= ex.getLocalizedMessage();
-//        resp.put("error:", message);
-//        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
-//    }
 
     /**
      * <p>
@@ -89,17 +75,16 @@ public class GlobalExceptionHandler {
      * @return error message
      */
     @ExceptionHandler(UserAlreadyExistException.class)
-    public ResponseEntity<Map<String, String>> handleUserAlreadyExistException(UserAlreadyExistException ex) {
-        Map<String, String> resp = new HashMap<>();
-        String message = ex.getLocalizedMessage();
-        resp.put("error:", message);
-        return new ResponseEntity<>(resp, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ApiResponse> handleUserAlreadyExistException(UserAlreadyExistException ex) {
+        log.error(ex.getMessage());
+        status.setMessage(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(status);
     }
 
     @ExceptionHandler(InvalidUserCredentialException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<ApiResponse> handleInvalidUserCredentialException(InvalidUserCredentialException ex) {
-        ex.printStackTrace();
+        log.error(ex.getMessage());
         status.setMessage(ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(status);
     }
