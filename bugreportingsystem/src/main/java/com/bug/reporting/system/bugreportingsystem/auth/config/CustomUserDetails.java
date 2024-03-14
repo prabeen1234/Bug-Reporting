@@ -1,5 +1,8 @@
 package com.bug.reporting.system.bugreportingsystem.auth.config;
 
+import com.bug.reporting.system.bugreportingsystem.auth.entity.Role;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,10 +21,18 @@ public class CustomUserDetails implements UserDetails {
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
+    @Enumerated(EnumType.STRING)
+    private String role;
+
+    public CustomUserDetails(String email, String password, String role) {
+        this.role=role;
+        this.email=email;
+        this.password=password;
+    }
 
     @Override
     public String getUsername() {
-        return email ;
+        return email;
     }
 
     @Override

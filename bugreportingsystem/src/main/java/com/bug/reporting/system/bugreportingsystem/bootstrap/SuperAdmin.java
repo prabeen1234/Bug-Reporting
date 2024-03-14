@@ -18,6 +18,7 @@ public class SuperAdmin implements CommandLineRunner {
     public void run(String... args) throws Exception {
         long superAdminCount = userRepository.countByRole(Role.SUPER_ADMIN);
         if (superAdminCount == 0) {
+            System.out.println("rimesh sapkota");
             User user = new User();
             user.setFirstName("Rimesh");
             user.setLastName("Sapkota");

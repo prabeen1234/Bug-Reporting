@@ -71,6 +71,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         userRepository.save(user);
         return new UserResponse(MessageConstant.SUCCESSFULLY_SAVE);
     }
+    @Override
+    public UserResponse adminsignup(SignUpRequest request) {
+        Optional<User> userOptional = userRepository.findByEmail(request.getEmail());
+        if (userOptional.isPresent()) {
+            throw new UserAlreadyExistException(MessageConstant.ALREADY_REGISTER);
+        }
+        var user = User.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .email(request.getEmail())
+                .password(passwordEncoders.encode(request.getPassword()))
+                .role(Role.ADMIN)
+                .build();
+        userRepository.save(user);
+        return new UserResponse(MessageConstant.SUCCESSFULLY_SAVE);
+    }
 
     @Override
     public JwtAuthenticationResponse signin(SigninRequest request) {

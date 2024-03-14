@@ -25,7 +25,7 @@ public class Bug {
     private Date timeStamp;
     private String photo;
     private String video;
-
     @ManyToOne
     private User user;
+
 }

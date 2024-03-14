@@ -11,13 +11,22 @@ import { FooterComponent } from './footer/footer.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { PasswordModule } from 'primeng/password';
 import { AboutComponent } from './about/about.component';
+import { ButtonModule } from 'primeng/button';
+import { SidebarModule } from 'primeng/sidebar';
+import { DropdownModule } from 'primeng/dropdown';
+import { BugComponent } from './bug/bug/bug.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { AdminBugComponent } from './admin/admin-bug/admin-bug.component';
+import { SuperadminComponent } from './super-admin/superadmin/superadmin.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
-import { SharedService } from './shared/shared.service';
-
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,13 +36,23 @@ import { SharedService } from './shared/shared.service';
     SignupComponent,
     FooterComponent,
     ChangePasswordComponent,
-    AboutComponent
-
+    AboutComponent,
+    BugComponent,
+    AdminComponent,
+    AdminBugComponent,
+    SuperadminComponent,
   ],
   imports: [
-    BrowserModule,PasswordModule,
+    BrowserModule,
+    PasswordModule,
     AppRoutingModule,
     MenubarModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+
+      },
+    }),
     ToastrModule.forRoot({
       timeOut: 1000,
       positionClass: 'toast-bottom-right',
@@ -41,9 +60,13 @@ import { SharedService } from './shared/shared.service';
     }),
     BrowserAnimationsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    DropdownModule,
+    ReactiveFormsModule,
+    SidebarModule,
+    ButtonModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

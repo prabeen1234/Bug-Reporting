@@ -12,6 +12,8 @@ import { MenuItem, PrimeIcons } from 'primeng/api';
 })
 export class NavbarComponent implements OnInit {
   constructor(private sharedService: SharedService){} 
+  showDropdown: boolean = false;
+   selectedOption!: string;
   isLoggedIn!: boolean;
   items!: MenuItem[];
   ngOnInit() {
@@ -24,11 +26,8 @@ export class NavbarComponent implements OnInit {
           {
               label: 'Home',
               icon: PrimeIcons.HOME,
-<<<<<<< Updated upstream
               routerLink: '/'
-=======
-              routerLink:"/"
->>>>>>> Stashed changes
+
           },
           {
               label: 'About',
@@ -45,6 +44,6 @@ export class NavbarComponent implements OnInit {
     }
       ];
 
-
 }
+
 }

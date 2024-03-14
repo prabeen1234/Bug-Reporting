@@ -1,0 +1,53 @@
+<p>admin-bug works!</p>
+<div class="container mt-4">
+	<div *ngIf="selectedBug; else cardList" class="row">
+	  <div class="col-md-12">
+		<div class="card bg-info text-white">
+		  <div class="card-body">
+			<h5 class="card-title">user: {{ selectedBug.email }}</h5>
+			<h5 class="card-title">Title: {{ selectedBug.bugTitle }}</h5>
+			<p class="card-text">Description: 
+			  {{ selectedBug.showDetails ? selectedBug.bugDescription : (selectedBug.bugDescription | slice:0:100) }}
+			  {{ !selectedBug.showDetails && selectedBug.bugDescription.length > 100 ? '...' : '' }}
+			</p>
+			<div class="card-deck">
+			  <div class="card">
+				<img src="{{ selectedBug.photo }}" class="card-img-top" alt="Bug Photo" />
+				<div class="card-body"></div>
+			  </div>
+			  <div class="card">
+				<video width="100%" height="auto" controls>
+				  <source src="{{ selectedBug.video }}" type="video/mp4" />
+				  Your browser does not support the video tag.
+				</video>
+				<div class="card-body"></div>
+			  </div>
+			</div>
+			<button class="btn btn-secondary mt-3" (click)="clearSelection()">Back to List</button>
+			<button class="btn btn-secondary mt-3">Pick</button>
+
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<ng-template #cardList>
+	  <div *ngFor="let bug of bugs" class="row mb-4">
+		<div class="col-md-6">
+		  <div class="card" (click)="selectCard(bug)">
+			<div class="card-body">
+			  <h5 class="card-title">Title: {{ bug.bugTitle }}</h5>
+			  <h5 class="card-title">user: {{ bug.email }}</h5>
+			  <p class="card-text">
+				Description: {{ bug.bugDescription.slice(0, 100)
+				}}{{ bug.bugDescription.length > 100 ? "..." : "" }}
+			  </p>
+			  <button class="btn btn-primary" (click)="toggleDetails(bug)">
+				Show Details
+			  </button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</ng-template>
+  </div>
+  

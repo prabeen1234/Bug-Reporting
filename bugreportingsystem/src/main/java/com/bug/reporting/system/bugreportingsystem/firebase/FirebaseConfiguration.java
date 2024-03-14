@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -43,20 +44,25 @@ public class FirebaseConfiguration {
     private String getExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf("."));
     }
-    public String upload(MultipartFile multipartFile) {
+    public String upload(MultipartFile multipartFile){
         try {
             String fileName = multipartFile.getOriginalFilename();
             fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
-
             File file = this.convertToFile(multipartFile, fileName);
             String URL = this.uploadFile(file, fileName);
             file.delete();
             return URL;
         } catch (Exception e) {
-            e.printStackTrace();
             return "Image couldn't upload, Something went wrong";
         }
     }
-    }
+
+
+}
+
+
+
+
+
 
 

@@ -9,6 +9,7 @@ import com.bug.reporting.system.bugreportingsystem.auth.dto.SigninRequest;
 import com.bug.reporting.system.bugreportingsystem.shared.UserResponse;
 
 public interface AuthenticationService {
+ UserResponse adminsignup(SignUpRequest request);
 
     UserResponse signup(SignUpRequest request);
 
@@ -19,6 +20,5 @@ public interface AuthenticationService {
     UserResponse forgetPassword(ForgetPasswordDto forgetPasswordDto);
 
     UserResponse generateCode(String email);
-
 
 }

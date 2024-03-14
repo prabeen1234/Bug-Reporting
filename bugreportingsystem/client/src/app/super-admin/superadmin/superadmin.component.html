@@ -1,0 +1,16 @@
+<p-sidebar [(visible)]="sidebarVisible">
+  <ng-template pTemplate="header">Header Content</ng-template>
+	<div>
+		<p-button
+		label="Admin Register"
+		loadingIcon="pi pi-bell"
+		routerLink="/signup"
+	  ></p-button>
+	</div>
+	<br/>
+	<p-button label="View Admin" (onClick)="load()"></p-button>
+
+
+  <ng-template pTemplate="footer">bug-reporting</ng-template>
+</p-sidebar>
+<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>

@@ -9,11 +9,13 @@ import { environment } from 'src/app/shared/environment';
 })
 export class SignupService {
   public user!: RegisterUser;
-
+  
   apiUrl = environment.registerurl;
+  adminRegisterUrl=environment.registerurl;
   constructor(private http: HttpClient) {}
 
   registerUser(user: RegisterUser): Observable<RegisterUser> {
     return this.http.post<RegisterUser>(this.apiUrl, user);
   }
+
 }

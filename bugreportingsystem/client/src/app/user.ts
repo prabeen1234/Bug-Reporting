@@ -12,7 +12,20 @@ export interface RegisterUser{
     export interface ChangePassword{
         email:string;
         newPassword:string;
+    }
 
-       
+    export interface BugDto{
+        bugTitle: string;
+        bugDescription: string;
+    }
+
+    export interface AdminBugDto{
+        bugTitle: string;
+        bugDescription: string;
+        photo: string; 
+        video: string;
+        email:string;
+        showDetails:boolean
+     
 
     }

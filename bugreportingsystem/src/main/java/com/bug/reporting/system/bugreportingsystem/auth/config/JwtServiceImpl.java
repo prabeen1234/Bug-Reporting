@@ -1,8 +1,6 @@
 package com.bug.reporting.system.bugreportingsystem.auth.config;
 
-import com.bug.reporting.system.bugreportingsystem.auth.entity.User;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -42,8 +40,10 @@ public class JwtServiceImpl implements JwtService {
      */
     @Override
     public String generateToken(UserDetails userDetails) {
+        CustomUserDetails user = (CustomUserDetails) userDetails;
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
+                .claim("role",user.getRole())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .signWith(key)

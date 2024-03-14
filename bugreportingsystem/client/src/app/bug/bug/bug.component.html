@@ -1,0 +1,70 @@
+<div
+  class="container mt-5 bg-light rounded align-items-center container py-5 h-100 --bs-info-bg-subtle col-12 col-md-8 col-lg-6 col-xl-5"
+>
+  <h2 class="mb-4 text-center">Bug Report Submission Form</h2>
+
+  <form
+    [formGroup]="bugReportFormGroup"
+    (ngSubmit)="addBugByUser()"
+    method="post"
+    #bugForm="ngForm"
+  >
+    <div class="form-group">
+      <label for="bugTitle">Bug Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="bugTitle"
+        name="bugTitle"
+        formControlName="bugTitle"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="bugDescription">Bug Description</label>
+      <textarea
+        class="form-control"
+        id="bugDescription"
+        name="bugDescription"
+        formControlName="bugDescription"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="videoFile">Video File Upload</label>
+      <div>
+        <button class="btn btn-light">
+          <input
+            type="file"
+            class="form-control-file"
+            id="screenshot"
+            name="photo"
+            formControlName="photo"
+          />
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="screenshot">Screenshot Upload</label>
+      <div>
+        <button class="btn btn-light">
+          <input
+            type="file"
+            class="form-control-file"
+            id="videoFile"
+            name="video"
+            formControlName="video"
+          />
+        </button>
+      </div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary align-items-center">
+      Submit Bug Report
+    </button>
+  </form>
+</div>
+<!-- [disabled]="bugReportForm.invalid || isAnyFieldEmpty() -->

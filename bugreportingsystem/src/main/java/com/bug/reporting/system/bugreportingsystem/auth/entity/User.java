@@ -31,6 +31,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public String getRole(){
+        return role.name();
+    }
     public Collection<? extends GrantedAuthority> getRoles() {
         return new ArrayList<>() {{
             add(new GrantedAuthority() {
@@ -41,4 +44,5 @@ public class User {
             });
         }};
     }
+
 }

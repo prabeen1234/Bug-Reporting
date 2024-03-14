@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class AuthenticationController {
+
     private final AuthenticationService authenticationService;
 
     @PostMapping(ApiURL.USER_SIGN_UP)
-    public UserResponse signup(@RequestBody @Validated SignUpRequest request) {
+    public UserResponse userSignup(@RequestBody @Validated SignUpRequest request) {
         return authenticationService.signup(request);
     }
-
+    @PostMapping(ApiURL.ADMIN_SIGN_UP)
+    public UserResponse AdminSignup(@RequestBody @Validated SignUpRequest request) {
+        return authenticationService.signup(request);
+    }
     @PostMapping(ApiURL.USER_SIGN_IN)
     public JwtAuthenticationResponse signin(@RequestBody SigninRequest request) {
         return authenticationService.signin(request);
