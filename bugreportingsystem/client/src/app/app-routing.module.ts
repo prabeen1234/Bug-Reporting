@@ -6,22 +6,38 @@ import { ChangePasswordComponent } from './auth/change-password/change-password.
 import { AboutComponent } from './about/about.component';
 import { HomebodyComponent } from './homebody/homebody.component';
 import { BugComponent } from './bug/bug/bug.component';
-import { AdminComponent } from './admin/admin/admin.component';
-import { AdminBugComponent } from './admin/admin-bug/admin-bug.component';
 import { SuperadminComponent } from './super-admin/superadmin/superadmin.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { SuperadminLoginComponent } from './super-admin/superadmin/superadmin-login/superadmin-login.component';
 
 const routes: Routes = [
-  { path: '', component: HomebodyComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'changepassword', component: ChangePasswordComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'bug', component: BugComponent },
-  {path:'admin-bug' , component:AdminBugComponent},
+  {
+    path: '',
+    children: [
+      { path: '', component: HomebodyComponent },
+      { path: 'signup', component: SignupComponent },
+      { path: 'login', component: LoginComponent },
+    ],
+  },
+  {
+    path: '',
+    children: [
+      { path: 'changepassword', component: ChangePasswordComponent },
+      { path: 'about', component: AboutComponent },
+      { path: 'bug', component: BugComponent },
+    ],
+  },
+
+  {
+    path: 'admin',
+    children: [{ path: '', component: AdminLoginComponent }],
+  },
   {
     path: 'super-admin',
-    component: SuperadminComponent,
-    children: [{ path: 'signup', component: SignupComponent }],
+    children: [
+      { path: '', component: SuperadminLoginComponent },
+      { path: 'superadmin', component: SuperadminComponent },
+    ],
   },
 ];
 

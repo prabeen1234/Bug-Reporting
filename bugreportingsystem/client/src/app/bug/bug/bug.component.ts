@@ -29,7 +29,7 @@ export class BugComponent {
     this.bugReportFormGroup = this.formBuilder.group({
       bugTitle: ['', Validators.required],
       bugDescription: ['', Validators.required],
-      photo
+      photo:[]
     });
   }
   addBugByUser(): void {

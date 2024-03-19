@@ -1,25 +1,24 @@
 <section class="bg-light py-5 d-flex align-items-center">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6 d-flex flex-column justify-content-center">
-          <div class="col-12 text-center text-primary fs-5">
-            <h2 class="main-heading text-uppercase">E-bug</h2>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 d-flex flex-column justify-content-center">
+        <div class="col-12 text-center text-primary fs-5">
+          <h2 class="main-heading text-uppercase">E-bug</h2>
         </div>
-          <p class="lead text-muted">
-            Data breach and unethical hacking news are nowadays grabbing headlines. Our security researchers are always looking to find new bugs and errors that can slip past developers and security teams, later leading to these problems. We are here to keep you out of these headlines and help you grow your business and continue your path in a secure digital world.
-          </p>
-          <div class="btn-container text-center mb-10">
-            <a routerLink="/bug" class="btn btn-primary animated-btn ">Bug Submiting Form</a>
-            
-          </div>
-        </div>
-        <div class="col-md-6">
-          <img src="assets\dashboard.png" class="img-fluid rounded" alt="E-bug Image">
+        <p class="lead text-muted">
+          Data breach and unethical hacking news are nowadays grabbing headlines. Our security researchers are always looking to find new bugs and errors that can slip past developers and security teams, later leading to these problems. We are here to keep you out of these headlines and help you grow your business and continue your path in a secure digital world.
+        </p>
+        <div class="btn-container text-center mb-10">
+          <a class="btn btn-primary animated-btn" (click)="navigateToBugForm()">Bug Submiting Form</a>
+         
         </div>
       </div>
+      <div class="col-md-6">
+        <img src="assets\dashboard.png" class="img-fluid rounded" alt="E-bug Image">
+      </div>
     </div>
-  </section>
-
+  </div>
+</section>
 
   <section class="section-cards mt-5">
     <div class="container">

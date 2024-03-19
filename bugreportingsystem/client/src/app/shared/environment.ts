@@ -6,6 +6,7 @@ export const environment = {
     registerurl : "/api/user/signup",
     userbug:"/api/user/bug/add",
     getBug:"/api/admin/bug/get",
-    adminregisterurl:"api/admin/signup"
+    adminregisterurl:"api/admin/signup",
+    changepasswordurl:"api/change_password"
   };
   

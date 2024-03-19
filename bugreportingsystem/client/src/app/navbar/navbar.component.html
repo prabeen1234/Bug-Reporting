@@ -1,28 +1,29 @@
-<p-menubar [model]="items" *ngIf="!isLoggedIn"> 
-    <ng-template pTemplate="start">
-    </ng-template>
-    
-    <ng-template pTemplate="end">
-        <div class="d-flex gap-1">
-            <button class="btn btn-success" [routerLink]="['/signup']">
-              <i class="pi pi-user-plus"></i> Signup
-            </button>
-            <button class="btn btn-primary" [routerLink]="['/login']">
-              <i class="pi pi-sign-in"></i> Login
-            </button>
-          </div>
-    </ng-template>
-   
+<div *ngIf="showNavbar">
+  <p-menubar [model]="items" *ngIf="!isLoggedIn">
+  <ng-template pTemplate="start"> </ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="d-flex gap-1">
+      <button class="btn btn-success" [routerLink]="['/signup']">
+        <i class="pi pi-user-plus"></i> Signup
+      </button>
+      <button class="btn btn-primary" [routerLink]="['/login']">
+        <i class="pi pi-sign-in"></i> Login
+      </button>
+    </div>
+  </ng-template> </p-menubar
+><p-menubar [model]="items" *ngIf="isLoggedIn">
+  <ng-template pTemplate="start"></ng-template>
+
+  <ng-template pTemplate="end">
+    <div class="d-flex gap-1">
+      <button class="btn btn-success" routerLink="/changepassword">
+        <i class="pi pi-lock"></i> Change Password
+      </button>
+      <button class="btn btn-danger" (click)="logout()">
+        <i class="pi pi-power-off"></i> Logout
+      </button>
+    </div>
+  </ng-template>
 </p-menubar>
-<p-menubar [model]="items" *ngIf="isLoggedIn"> 
-    <ng-template pTemplate="start">
-    </ng-template>
-    
-    <ng-template pTemplate="end">
-      <div class="d-flex gap-1">
-        <button class="btn btn-success" (click)="showDropdown = !showDropdown">
-          <i class="pi pi-user"></i>
-        </button>
-      </div>
-    </ng-template>
-</p-menubar>
+</div>

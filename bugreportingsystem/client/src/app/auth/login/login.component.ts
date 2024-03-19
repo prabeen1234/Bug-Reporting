@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           'token',
           JSON.stringify({ token: response, name: name })
         );
-        this.sharedService.setLoginStatuss(true);
+        this.sharedService.setLoginStatus(true);
         this.router.navigate(['']);
       },
       error: (err) => {

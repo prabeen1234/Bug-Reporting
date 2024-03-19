@@ -23,6 +23,8 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { AdminBugComponent } from './admin/admin-bug/admin-bug.component';
 import { SuperadminComponent } from './super-admin/superadmin/superadmin.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { SuperadminLoginComponent } from './super-admin/superadmin/superadmin-login/superadmin-login.component';
+import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -41,6 +43,8 @@ export function tokenGetter() {
     AdminComponent,
     AdminBugComponent,
     SuperadminComponent,
+    SuperadminLoginComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,

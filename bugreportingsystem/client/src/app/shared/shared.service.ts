@@ -6,12 +6,14 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedService {
   
-  private loginStatusSubject = new BehaviorSubject<boolean>(false);
-  loginStatus$ = this.loginStatusSubject.asObservable();
-  setLoginStatuss(status: boolean): void {
-    this.loginStatusSubject.next(status);
+  private isLoggedIn = new BehaviorSubject<boolean>(false);
+  loginStatus$ = this.isLoggedIn.asObservable();
+  setLoginStatus(status: boolean): void {
+    this.isLoggedIn.next(status);
     console.log("shared service"+status);
   }
+  
   constructor() { }
+  
   
 }
