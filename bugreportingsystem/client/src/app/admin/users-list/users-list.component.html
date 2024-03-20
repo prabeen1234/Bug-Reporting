@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <h2>User Detail Table</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>User Email</th>
+          <th>Number of Bugs Submitted</th>
+          <th>Rewards Points</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.email }}</td>
+          <td>{{ user.bugsSubmitted }}</td>
+          <td>{{ user.rewardsPoints }}</td>
+          <td><button class="btn btn-danger btn-sm" (click)="deleteUser(user)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

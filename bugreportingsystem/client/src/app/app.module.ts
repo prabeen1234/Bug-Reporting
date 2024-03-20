@@ -28,7 +28,8 @@ import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SharedService } from './shared/shared.service';
 import { AuthGuard } from './auth/authguard';
 import { RegisterAdminComponent } from './super-admin/register-admin/register-admin.component';
-
+import { UsersListComponent } from './admin/users-list/users-list.component';
+import { BugsPickedComponent } from './admin/bugs-picked/bugs-picked.component';
 export function tokenGetter() {
   return localStorage.getItem("access_token");
 }
@@ -48,7 +49,9 @@ export function tokenGetter() {
     SuperadminComponent,
     SuperadminLoginComponent,
     AdminLoginComponent,
-    RegisterAdminComponent
+    RegisterAdminComponent,
+    UsersListComponent,
+    BugsPickedComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../shared/shared.service';
 import { Router } from '@angular/router';
+import { AdminbarService } from '../admin/admin/adminbar.service';
 
 @Component({
   selector: 'app-homebody',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomebodyComponent implements OnInit{
   
-  constructor(private sharedService: SharedService, private router: Router) { }
+  constructor(private sharedService: SharedService, private router: Router,private adminbarService:AdminbarService) { }
 
   isLoggedIn: boolean = false; 
 
@@ -17,6 +18,7 @@ export class HomebodyComponent implements OnInit{
       this.sharedService.loginStatus$.subscribe((status) => {
       this.isLoggedIn = status;
     });
+    this.adminbarService.hide();
   }
 
   navigateToBugForm() {

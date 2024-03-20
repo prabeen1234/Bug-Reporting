@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
@@ -12,9 +12,13 @@ import { SuperadminLoginComponent } from './super-admin/superadmin/superadmin-lo
 import { AuthGuard } from './auth/authguard';
 import { AdminBugComponent } from './admin/admin-bug/admin-bug.component';
 import { RegisterAdminComponent } from './super-admin/register-admin/register-admin.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { UsersListComponent } from './admin/users-list/users-list.component';
+import { BugsPickedComponent } from './admin/bugs-picked/bugs-picked.component';
 const routes: Routes = [
   {
     path: '',
+
     children: [
       { path: '', component: HomebodyComponent },
       { path: 'about', component: AboutComponent },
@@ -35,21 +39,20 @@ const routes: Routes = [
     path: 'admin',
     children: [
       { path: '', component: AdminLoginComponent },
+      { path: 'userlist', component: UsersListComponent },
+      { path: 'admindashboard', component: AdminComponent },
       { path: 'adminbug', component: AdminBugComponent },
+      { path: 'buglist', component: BugsPickedComponent },
     ],
   },
-  {path:'registeradmin',component:RegisterAdminComponent},
   {
     path: 'super-admin',
     children: [
-      { path: '', component: SuperadminLoginComponent },
-      {
-        path: 'super-admin',
-        // canActivate: [AuthGuard],
-        children: [{ path: 'superadmin', component: SuperadminComponent },
-      ],
-      },
-    ],
+          { path: '', component: SuperadminLoginComponent },
+          { path: '', component: SuperadminComponent },
+          { path: 'userlist', component: UsersListComponent },
+          { path: 'registeradmin', component: RegisterAdminComponent }
+        ],
   },
 ];
 

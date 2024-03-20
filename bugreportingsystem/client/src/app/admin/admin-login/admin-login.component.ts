@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/auth/service/login.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { LoginUser } from 'src/app/user';
+import { AdminbarService } from '../admin/adminbar.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -24,10 +25,12 @@ export class AdminLoginComponent {
     private sharedService: SharedService,
     private router: Router,
     private toasterservice: ToastrService,
-    private jwtHelper: JwtHelperService
+    private jwtHelper: JwtHelperService,
+    private adminbarService:AdminbarService
   ) {}
   ngOnInit(): void {
     this.getToken();
+    this.adminbarService.hide();
   }
 
   onSubmit() {

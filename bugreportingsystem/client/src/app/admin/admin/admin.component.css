@@ -1,0 +1,30 @@
+/* app.component.css */
+#sidebar {
+    min-width: 250px;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Adjust this if necessary */
+    padding: 48px 0 0; /* Adjust padding to match your navbar height */
+    width: 250px; /* Add width to ensure it does not collapse */
+    background-color: #f8f9fa; /* Sidebar background color */
+  }
+  
+  .nav-link {
+    color: #333;
+  }
+  
+  .nav-link:hover {
+    color: #007bff;
+  }
+  
+  /* Adjust main content area for padding */
+  main {
+    padding-top: 50px; /* Adjust to match your navbar height */
+    margin-left: 250px; /* Add margin to accommodate sidebar width */
+  }
+  

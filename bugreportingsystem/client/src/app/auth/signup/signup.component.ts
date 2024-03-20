@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SignupService } from '../service/signup.service';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterUser } from 'src/app/user';
+import { AdminbarService } from 'src/app/admin/admin/adminbar.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent {
-  constructor(private registerService: SignupService,private toast:ToastrService){}
+export class SignupComponent implements OnInit {
+  constructor(private registerService: SignupService,private toast:ToastrService ,private adminbarService:AdminbarService){}
   public data: RegisterUser = {
     firstName: '',
     lastName: '',
@@ -26,5 +27,8 @@ export class SignupComponent {
           console.log("error")
       }
     })
+}
+ngOnInit(): void {
+    this.adminbarService.hide();
 }
 }
