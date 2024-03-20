@@ -25,6 +25,9 @@ import { SuperadminComponent } from './super-admin/superadmin/superadmin.compone
 import { JwtModule } from '@auth0/angular-jwt';
 import { SuperadminLoginComponent } from './super-admin/superadmin/superadmin-login/superadmin-login.component';
 import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
+import { SharedService } from './shared/shared.service';
+import { AuthGuard } from './auth/authguard';
+import { RegisterAdminComponent } from './super-admin/register-admin/register-admin.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -44,7 +47,8 @@ export function tokenGetter() {
     AdminBugComponent,
     SuperadminComponent,
     SuperadminLoginComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    RegisterAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,7 @@ export function tokenGetter() {
     SidebarModule,
     ButtonModule,
   ],
-  providers: [],
+  providers: [SharedService,AuthGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

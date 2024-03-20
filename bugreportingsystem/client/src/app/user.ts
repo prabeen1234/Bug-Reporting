@@ -4,11 +4,18 @@ export interface RegisterUser{
     email:string;
     password:string;
     }
+    export interface RegisterAdmin{
+        firstName: string;
+        lastName:string;
+        email:string;
+        password:string;
+        }
     export interface LoginUser{
         email:string;
         password:string;
         message:string;
     }
+   
     export interface ChangePassword{
         email:string;
         newPassword:string;

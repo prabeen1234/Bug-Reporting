@@ -15,7 +15,7 @@ export class AdminRegisterService {
   userRegisterUrl=environment.adminregisterurl;
   constructor(private http: HttpClient) {}
 
-  registerUser(user: RegisterAdmin): Observable<RegisterAdmin> {
+  signup(user: RegisterAdmin): Observable<RegisterAdmin> {
     return this.http.post<RegisterAdmin>(this.apiUrl, user);
   }
 }

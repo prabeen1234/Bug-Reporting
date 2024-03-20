@@ -14,7 +14,7 @@ export class AdminService {
 
   getBugOfUser():Observable<AdminBugDto[]>{
   
-    return this.http.get<AdminBugDto[]>(this.getBugUrl)
+  return this.http.get<AdminBugDto[]>(this.getBugUrl)
 
   }
 }

@@ -1,4 +1,4 @@
-// environment.ts
+
 
 export const environment = {
     production: false,
@@ -6,7 +6,7 @@ export const environment = {
     registerurl : "/api/user/signup",
     userbug:"/api/user/bug/add",
     getBug:"/api/admin/bug/get",
-    adminregisterurl:"api/admin/signup",
-    changepasswordurl:"api/change_password"
+    adminregisterurl:"/api/admin/signup",
+    changepasswordurl:"/api/change_password"
   };
   

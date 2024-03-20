@@ -20,7 +20,7 @@ export class RegisterAdminComponent {
     password: '',
   };
   saveAdmin() {
-    this.adminRegisterService.registerUser(this.user).subscribe({
+    this.adminRegisterService.signup(this.user).subscribe({
       next: (response) => {
         this.toast.success('successfully register');
       },
