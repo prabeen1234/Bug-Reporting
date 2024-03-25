@@ -24,7 +24,6 @@ import { AdminBugComponent } from './admin/admin-bug/admin-bug.component';
 import { SuperadminComponent } from './super-admin/superadmin/superadmin.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SuperadminLoginComponent } from './super-admin/superadmin/superadmin-login/superadmin-login.component';
-import { AdminLoginComponent } from './admin/admin-login/admin-login.component';
 import { SharedService } from './shared/shared.service';
 import { AuthGuard } from './auth/authguard';
 import { RegisterAdminComponent } from './super-admin/register-admin/register-admin.component';
@@ -48,7 +47,6 @@ export function tokenGetter() {
     AdminBugComponent,
     SuperadminComponent,
     SuperadminLoginComponent,
-    AdminLoginComponent,
     RegisterAdminComponent,
     UsersListComponent,
     BugsPickedComponent

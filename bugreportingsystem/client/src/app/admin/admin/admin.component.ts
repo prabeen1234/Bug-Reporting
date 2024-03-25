@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import {  NavigationEnd, Router } from '@angular/router';
 import { AdminbarService } from './adminbar.service';
 import { SharedService } from 'src/app/shared/shared.service';
+import { NavbarService } from 'src/app/auth/service/navbar.service';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +19,7 @@ export class AdminComponent  implements OnDestroy {
   subscription:Subscription;
   isLoggedIn: boolean=false;
 
-  constructor(private adminbarService:AdminbarService,private sharedService:SharedService,private router:Router){
+  constructor(private adminbarService:AdminbarService,private sharedService:SharedService,private router:Router,private footerService : FooterService , private navbarService:NavbarService){
 
     this.subscription = adminbarService.showadminBar.subscribe((value)=>{
       this.showadminBar = value;
@@ -28,17 +29,22 @@ export class AdminComponent  implements OnDestroy {
     this.sharedService.loginStatus$.subscribe((status) => {
       this.isLoggedIn = status;
     });
+    this.navbarService.hide();
+    this.footerService.hide();
 
 
     
 }
 ngOnDestroy(): void {
   this.subscription.unsubscribe;
+  this.adminbarService.show();
 }
-logout() {
-  
-  this.isLoggedIn = false;
-  this.router.navigate(['admin']);
 
-}
+  logout() {
+  
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
+  }
+
+
 }

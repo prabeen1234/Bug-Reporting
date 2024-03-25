@@ -14,11 +14,14 @@ export interface RegisterUser{
         email:string;
         password:string;
         message:string;
+      
     }
    
     export interface ChangePassword{
         email:string;
         newPassword:string;
+        oldPassword:string;
+        confirmPassword:string;
     }
 
     export interface BugDto{

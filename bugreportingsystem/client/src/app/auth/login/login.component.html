@@ -6,7 +6,6 @@
           <div class="card-body p-5 text-center">
             <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
               <h2 class="text-center">Login</h2>
-
               <div class="form-group">
                 <label for="email" class="float-left">Email:</label>
                 <input
@@ -48,7 +47,11 @@
               </div>
               <br />
               <div>
-                <button type="submit" class="btn btn-lg btn-primary submit-btn" [disabled]="loginForm.invalid">
+                <button
+                  type="submit"
+                  class="btn btn-lg btn-primary submit-btn"
+                  [disabled]="loginForm.invalid"
+                >
                   Login
                 </button>
               </div>
@@ -57,7 +60,7 @@
           <div>
             <p class="text-center">
               Don't have an account?
-              <a  class="text-dark-50 fw-bold" routerLink="/signup">Sign Up</a>
+              <a class="text-dark-50 fw-bold" routerLink="/signup">Sign Up</a>
             </p>
           </div>
         </div>

@@ -1,22 +1,18 @@
-<!-- bug-assignment-list.component.html -->
 <div class="container">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>User</th>
-          <th>Admin</th>
-          <th>Bug Title</th>
-          <!-- Add more columns as needed -->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let assignment of bugs">
-          <td>{{ assignment.user }}</td>
-          <td>{{ assignment.admin }}</td>
-          <td>{{assignment.bugTitle}}</td>
-          <!-- Add more columns as needed -->
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Admin</th>
+        <th>Bug Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let assignment of bugs">
+        <td>{{ assignment.user }}</td>
+        <td>{{ assignment.admin }}</td>
+        <td>{{ assignment.bugTitle }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

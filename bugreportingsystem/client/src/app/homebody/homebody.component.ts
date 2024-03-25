@@ -13,7 +13,6 @@ export class HomebodyComponent implements OnInit{
   constructor(private sharedService: SharedService, private router: Router,private adminbarService:AdminbarService) { }
 
   isLoggedIn: boolean = false; 
-
   ngOnInit() {
       this.sharedService.loginStatus$.subscribe((status) => {
       this.isLoggedIn = status;

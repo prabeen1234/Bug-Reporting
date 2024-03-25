@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FooterService } from 'src/app/auth/service/footer.service';
 import { NavbarService } from 'src/app/auth/service/navbar.service';
+import { AdminbarService } from '../admin/adminbar.service';
 interface User {
   email: string;
   bugsSubmitted: number;
@@ -12,11 +13,10 @@ interface User {
   styleUrls: ['./users-list.component.css']
 })
 export class UsersListComponent implements OnInit,OnDestroy{
-  constructor(private navbarService:NavbarService,private footerService:FooterService){}
+  constructor(private navbarService:NavbarService,private footerService:FooterService,private adminBar:AdminbarService){}
   users: User[] = [
     { email: 'user1@example.com', bugsSubmitted: 5, rewardsPoints: 100 },
     { email: 'user2@example.com', bugsSubmitted: 10, rewardsPoints: 200 }
-    // Add more users as needed
   ];
 
   deleteUser(user: User): void {
@@ -26,6 +26,7 @@ export class UsersListComponent implements OnInit,OnDestroy{
     }
   }
   ngOnInit(): void {
+    this.adminBar.show();
       this.navbarService.hide();
       this.footerService.hide();
   }

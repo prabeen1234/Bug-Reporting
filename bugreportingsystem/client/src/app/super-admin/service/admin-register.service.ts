@@ -9,13 +9,13 @@ import { RegisterAdmin } from 'src/app/user';
 })
 export class AdminRegisterService {
 
-  public user!: RegisterAdmin;
+  public admin!: RegisterAdmin;
   
   apiUrl = environment.adminregisterurl;
   userRegisterUrl=environment.adminregisterurl;
   constructor(private http: HttpClient) {}
 
-  signup(user: RegisterAdmin): Observable<RegisterAdmin> {
-    return this.http.post<RegisterAdmin>(this.apiUrl, user);
+  adminsignup(admin: RegisterAdmin): Observable<RegisterAdmin> {
+    return this.http.post<RegisterAdmin>(this.apiUrl, admin);
   }
 }

@@ -7,16 +7,16 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   constructor(private sharedService: SharedService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
     return this.sharedService.loginStatus$.pipe(
-      tap(loggedIn => {
+      tap((loggedIn) => {
         if (!loggedIn) {
-          this.router.navigate(['']); 
+          this.router.navigate(['']);
         }
       })
     );

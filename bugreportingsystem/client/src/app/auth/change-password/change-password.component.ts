@@ -15,7 +15,9 @@ export class ChangePasswordComponent implements OnInit {
 
   public data: ChangePassword = {
     email: '',
+    oldPassword:'',
     newPassword: '',
+    confirmPassword:''
   };
 constructor(private changePasswordService:ChangePasswordService,private toast:ToastrService,private formBuilder :FormBuilder,private adminbarService:AdminbarService) {}
 ngOnInit(): void {

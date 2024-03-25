@@ -1,4 +1,4 @@
 export interface LoginSuperAdmin{
-    sadminEmail:string;
-    sadminPassword:string;
+    email:string;
+    password:string;
 }
