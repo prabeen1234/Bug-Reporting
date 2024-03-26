@@ -18,12 +18,12 @@ public class SuperAdmin implements CommandLineRunner {
     public void run(String... args) throws Exception {
         long superAdminCount = userRepository.countByRole(Role.SUPER_ADMIN);
         if (superAdminCount == 0) {
-            System.out.println("rimesh sapkota");
+            System.out.println("prabin neupane");
             User user = new User();
-            user.setFirstName("Rimesh");
-            user.setLastName("Sapkota");
-            user.setEmail("rimeshsapkota123@gmail.com");
-            user.setPassword(passwordEncoder.encode("Rimesh12345@@"));
+            user.setFirstName("Prabin");
+            user.setLastName("Neupane");
+            user.setEmail("prabeenneupane123@gmail.com");
+            user.setPassword(passwordEncoder.encode("Prabeen@123"));
             user.setRole(Role.SUPER_ADMIN);
             userRepository.save(user);
         }

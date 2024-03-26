@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface BugRepository extends JpaRepository<Bug, Integer> {
     Optional<Bug> findByUser(Optional<User> optionalUser);
+
 }
